@@ -18,7 +18,7 @@ const ChatContainer = () => {
   } = useChatStore();
   const { authUser } = useAuthStore();
   const messageEndRef = useRef(null);
-  
+
   // State for storing selected image URL
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -53,7 +53,9 @@ const ChatContainer = () => {
         {messages.map((message) => (
           <div
             key={message._id}
-            className={`chat ${message.senderId === authUser._id ? "chat-end" : "chat-start"}`}
+            className={`chat ${
+              message.senderId === authUser._id ? "chat-end" : "chat-start"
+            }`}
             ref={messageEndRef}
           >
             <div className="chat-image avatar">
@@ -73,7 +75,7 @@ const ChatContainer = () => {
                 {formatMessageTime(message.createdAt)}
               </time>
             </div>
-            <div className="chat-bubble flex flex-col">
+            <div className="chat-bubble flex flex-col break-words max-w-[80%] sm:max-w-[60%]">
               {message.image && (
                 <>
                   {/* Set selected image and open modal */}
@@ -85,12 +87,12 @@ const ChatContainer = () => {
                     <img
                       src={message.image}
                       alt="Attachment"
-                      className="sm:max-w-[200px] rounded-md mb-2"
+                      className="w-full max-w-[250px] sm:max-w-[200px] rounded-md mb-2"
                     />
                   </label>
                 </>
               )}
-              {message.text && <p>{message.text}</p>}
+              {message.text && <p className="break-words">{message.text}</p>}
             </div>
           </div>
         ))}
@@ -98,13 +100,21 @@ const ChatContainer = () => {
 
       <MessageInput />
 
-      {/* Checkbox-Based Image Preview Modal */}
+      {/* Image Preview Modal */}
       <input type="checkbox" id="image_modal" className="modal-toggle" />
-      <div className="modal" role="dialog">
+      <div className="modal modal-bottom sm:modal-middle" role="dialog">
         <div className="modal-box">
-          {selectedImage && <img src={selectedImage} alt="Preview" className="w-full rounded-lg" />}
+          {selectedImage && (
+            <img
+              src={selectedImage}
+              alt="Preview"
+              className="w-full max-h-[80vh] object-contain rounded-lg"
+            />
+          )}
         </div>
-        <label className="modal-backdrop" htmlFor="image_modal">Close</label>
+        <label className="modal-backdrop" htmlFor="image_modal">
+          Close
+        </label>
       </div>
     </div>
   );
