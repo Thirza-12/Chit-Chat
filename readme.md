@@ -141,5 +141,4 @@
    npm run build
    ```
 
-Your project is now set up and ready for deployment!
 
