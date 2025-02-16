@@ -46,9 +46,10 @@ const ChatContainer = () => {
   }
 
   return (
-    <div className="flex-1 flex flex-col overflow-auto">
+    <div className="flex-1 flex flex-col overflow-hidden">
       <ChatHeader />
 
+      {/* Chat Messages Container with Vertical Scroll */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message) => (
           <div
@@ -100,10 +101,10 @@ const ChatContainer = () => {
 
       <MessageInput />
 
-      {/* Image Preview Modal */}
+      {/* Image Preview Modal (Now Centered) */}
       <input type="checkbox" id="image_modal" className="modal-toggle" />
-      <div className="modal modal-bottom sm:modal-middle" role="dialog">
-        <div className="modal-box">
+      <div className="modal flex items-center justify-center" role="dialog">
+        <div className="modal-box max-w-lg">
           {selectedImage && (
             <img
               src={selectedImage}
